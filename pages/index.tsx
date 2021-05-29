@@ -13,8 +13,6 @@ import { useState } from 'react';
 
 // import './index.css';
 
-
-
 interface formData {
     password: string;
     time: number;
@@ -83,26 +81,10 @@ export default function Home() {
                         <FontAwesomeIcon icon={faClock} />
                     </span>
                     <DatePicker
-                        // customInput={
-                        //     <input
-                        //         className={styles.datePickerInput}
-                        //         type="text"
-                        //         placeholder={pickDate.toDateString()}
-                        //     />
-                        // }
+                        clearIcon={null}
                         value={pickDate}
                         onChange={(date) => setPickDate(date)}
                     />
-                    {/* <input
-                        {...register('password', { required: true })}
-                        id="password"
-                        style={{
-                            borderBottomLeftRadius: 0,
-                            borderTopLeftRadius: 0,
-                        }}
-                        className={styles.formControl}
-                        placeholder="YYYY-MM-DD"
-                    /> */}
                 </div>
                 {errors.password && <span style={{ color: 'red' }}>* Please enter the password</span>}
                 <div style={{ marginBottom: '13px' }} />

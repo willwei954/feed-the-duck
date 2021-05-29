@@ -164,10 +164,14 @@
 }
 
 .react-date-picker__wrapper {
+    height: 40px;
     display: flex;
     flex-grow: 1;
     flex-shrink: 0;
-    border: thin solid gray;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 8px 12px;
 }
 
 .react-date-picker__inputGroup {
@@ -212,7 +216,7 @@
 .react-date-picker__button {
     border: 0;
     background: transparent;
-    padding: 4px 6px;
+    padding: 3px 6px;
 }
 
 .react-date-picker__button:enabled {
