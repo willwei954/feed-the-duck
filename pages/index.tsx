@@ -80,7 +80,7 @@ export default function Home() {
                     >
                         <FontAwesomeIcon icon={faClock} />
                     </span>
-                    <DatePicker clearIcon={null} value={pickDate} onChange={(date) => setPickDate(date)} />
+                    <DatePicker format={"y-MM-d"} clearIcon={null} value={pickDate} onChange={(date) => setPickDate(date)} />
                 </div>
                 {errors.password && <span style={{ color: 'red' }}>* Please enter the password</span>}
                 <div style={{ marginBottom: '13px' }} />
