@@ -80,11 +80,7 @@ export default function Home() {
                     >
                         <FontAwesomeIcon icon={faClock} />
                     </span>
-                    <DatePicker
-                        clearIcon={null}
-                        value={pickDate}
-                        onChange={(date) => setPickDate(date)}
-                    />
+                    <DatePicker clearIcon={null} value={pickDate} onChange={(date) => setPickDate(date)} />
                 </div>
                 {errors.password && <span style={{ color: 'red' }}>* Please enter the password</span>}
                 <div style={{ marginBottom: '13px' }} />
@@ -105,7 +101,8 @@ export default function Home() {
                         {...register('time')}
                         id="time"
                         style={{
-                            borderRadius: 0,
+                            borderBottomLeftRadius: 0,
+                            borderTopLeftRadius: 0,
                         }}
                         className={styles.formControl}
                         placeholder="14"
@@ -168,9 +165,8 @@ export default function Home() {
                         {...register('views')}
                         id="views"
                         style={{
-                            // borderRight: 0,
-                            borderBottomRightRadius: 0,
-                            borderTopRightRadius: 0,
+                            borderBottomRightRadius: '5px',
+                            borderTopRightRadius: '5px',
                             borderBottomLeftRadius: 0,
                             borderTopLeftRadius: 0,
                         }}
