@@ -1,17 +1,13 @@
-// import 'react-datepicker/dist/react-datepicker.css';
-
 import { faCheese, faClock, faMapMarkerAlt, faSortNumericUp, faWeight } from '@fortawesome/free-solid-svg-icons';
 
 import DatePicker from 'react-date-picker/dist/entry.nostyle';
-// import DatePicker from 'react-datepicker';
+import Dialog from '@material-ui/core/Dialog/Dialog';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Head from 'next/head';
-import router from 'next/router';
+import Typography from '@material-ui/core/Typography/Typography';
 import styles from '../styles/Home.module.css';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-
-// import './index.css';
 
 enum WEIGHT_UNIT {
     GRAM = 'gram',
@@ -36,6 +32,7 @@ export default function Home() {
     } = useForm();
 
     const [pickDate, setPickDate] = useState<Date>(new Date());
+    const [dialog, setDialog] = useState<boolean>(false);
 
     const onSubmit = async (formData) => {
         console.log(Number(pickDate), formData);
@@ -60,10 +57,7 @@ export default function Home() {
         if (res.ok) {
             const json = await res.json();
 
-            // router.push({
-            //     pathname: '/password/url',
-            //     query: { url_token: json.url_token },
-            // });
+            setDialog(true);
         }
     };
 
@@ -73,6 +67,15 @@ export default function Home() {
                 <title>Feed The Duck</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
+            <Dialog open={dialog} onClose={() => setDialog(false)}>
+                <Typography
+                    style={{
+                        padding: '2em',
+                    }}
+                >
+                    Thank you for completing the survey.
+                </Typography>
+            </Dialog>
             <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
                 <h3>Feed The Duck</h3>
                 What time the ducks are fed?

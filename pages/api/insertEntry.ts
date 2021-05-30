@@ -1,6 +1,5 @@
 import { NextApiHandler } from 'next';
 import cuid from 'cuid';
-import formatISO9075 from 'date-fns/formatISO9075';
 import { open } from 'sqlite';
 import sqlite3 from 'sqlite3';
 
@@ -13,7 +12,6 @@ const handler: NextApiHandler = async (req, res) => {
 
         const recordId = cuid();
 
-        console.log(values);
         const query = {
             query: `INSERT INTO duck(id, duck_quantity, food, food_quantity, feed_time, location) VALUES (?, ?, ?, ?, ?, ?)`,
             values: [recordId, values.duck_quantity, values.food, values.food_quantity, values.time, values.location],
@@ -24,18 +22,11 @@ const handler: NextApiHandler = async (req, res) => {
             driver: sqlite3.Database,
         });
 
-        console.log('values', query);
-
         await dbSqlite.run(query.query, query.values);
-        // await dbSqlite.run(query);
 
-        console.log('values');
-        
         await dbSqlite.close();
 
-        console.log('values closed');
-
-        return res.json({ url_token: recordId });
+        return res.json({ status: 'success' });
     } catch (e) {
         console.error(e);
 
