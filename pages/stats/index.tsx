@@ -1,7 +1,16 @@
+import EnhancedTable from '../components/EnhancedTable';
+import styles from '../../styles/Stats.module.css';
+
 function Status({ data }) {
     // Render data...
-    console.log(data);
-    return <div>done</div>;
+    console.log('--- data ---', data);
+    return (
+        <div className={styles.container}>
+            <div className={styles.wrapper}>
+                <EnhancedTable data={data} />
+            </div>
+        </div>
+    );
 }
 
 // This gets called on every request
@@ -11,6 +20,11 @@ export async function getServerSideProps() {
         method: 'GET',
     });
     const data = await res.json();
+
+    data.forEach((a) => {
+        const t = new Date(Number(a.feed_time)).toDateString();
+        a.feed_time = t;
+    });
 
     // Pass data to the page via props
     return { props: { data } };

@@ -9,19 +9,12 @@ import styles from '../styles/Home.module.css';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 
-enum WEIGHT_UNIT {
-    GRAM = 'gram',
-    POUND = 'pound',
-    KILOGRAM = 'kilogram',
-}
-
 interface formData {
     time: number;
     food: string;
     location: string;
     duck_quantity: number;
     food_quantity: number;
-    weight_unit: WEIGHT_UNIT;
 }
 
 export default function Home() {
@@ -49,7 +42,6 @@ export default function Home() {
                     location: formData.location,
                     duck_quantity: Number(formData.duck_quantity),
                     food_quantity: Number(formData.food_quantity),
-                    weight_unit: formData.weight_unit,
                 } as formData,
             }),
         });
@@ -121,8 +113,7 @@ export default function Home() {
                             borderTopLeftRadius: 0,
                         }}
                         className={styles.formControl}
-                        placeholder="14"
-                        type="number"
+                        placeholder="... Bread Crumb"
                     />
                 </div>
                 Where the ducks are fed?
@@ -150,7 +141,6 @@ export default function Home() {
                         }}
                         className={styles.formControl}
                         placeholder="... XXX National Park"
-                        type="number"
                     />
                 </div>
                 How many ducks are fed?
@@ -207,23 +197,17 @@ export default function Home() {
                         placeholder="... 10"
                         type="number"
                     />
-                    <div className={styles.inputGroupButton}>
-                        <select
-                            {...register('weight_unit')}
-                            id="weight_unit"
-                            style={{
-                                background: '#dddfe0',
-                                width: 'auto',
-                                borderBottomLeftRadius: 0,
-                                borderTopLeftRadius: 0,
-                            }}
-                            className={styles.formControl}
-                        >
-                            <option value={WEIGHT_UNIT.GRAM}>{WEIGHT_UNIT.GRAM}</option>
-                            <option value={WEIGHT_UNIT.POUND}>{WEIGHT_UNIT.POUND}</option>
-                            <option value={WEIGHT_UNIT.KILOGRAM}>{WEIGHT_UNIT.KILOGRAM}</option>
-                        </select>
-                    </div>
+                    <span
+                        style={{
+                            width: '1%',
+                            // borderRight: 0,
+                            borderBottomLeftRadius: 0,
+                            borderTopLeftRadius: 0,
+                        }}
+                        className={styles.inputGroupAddon}
+                    >
+                        Grams
+                    </span>
                 </div>
                 <button className={styles.button}>Submit</button>
             </form>
