@@ -4,7 +4,7 @@ const sqlite3 = require('sqlite3');
 async function db() {
     try {
         const sqliteDb = await sqlite.open({
-            filename: './db/study_duck.db',
+            filename: './study_duck.db',
             driver: sqlite3.cached.Database,
         });
         console.log('--- Connected to the study duck SQlite database.');

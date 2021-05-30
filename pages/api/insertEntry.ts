@@ -8,37 +8,38 @@ const handler: NextApiHandler = async (req, res) => {
     const { values } = req.body;
     try {
         if (!values) {
-            return res
-                .status(400)
-                .json({ message: 'Missing Values from body' });
+            return res.status(400).json({ message: 'Missing Values from body' });
         }
 
         const recordId = cuid();
-        const now = formatISO9075(new Date());
 
+        console.log(values);
         const query = {
-            query: `INSERT INTO ducks(id, duck_quantity, food, food_quantity, feed_time, location) VALUES (?, ?, ?, ?, ?, ?)`,
-            values: [
-                recordId,
-                now,
-            ],
+            query: `INSERT INTO duck(id, duck_quantity, food, food_quantity, feed_time, location) VALUES (?, ?, ?, ?, ?, ?)`,
+            values: [recordId, values.duck_quantity, values.food, values.food_quantity, values.time, values.location],
         };
+        
         const dbSqlite = await open({
-            filename: './pwpusher.db',
-            driver: sqlite3.cached.Database,
+            filename: './study_duck.db',
+            driver: sqlite3.Database,
         });
 
-        await dbSqlite.run(query.query, query.values);
+        console.log('values', query);
 
+        await dbSqlite.run(query.query, query.values);
+        // await dbSqlite.run(query);
+
+        console.log('values');
+        
         await dbSqlite.close();
+
+        console.log('values closed');
 
         return res.json({ url_token: recordId });
     } catch (e) {
         console.error(e);
 
-        return res
-            .status(500)
-            .json({ message: 'Error during password inserting' });
+        return res.status(500).json({ message: e });
     }
 };
 
