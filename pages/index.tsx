@@ -2,6 +2,7 @@ import { faCheese, faClock, faMapMarkerAlt, faSortNumericUp, faWeight } from '@f
 
 import DatePicker from 'react-date-picker/dist/entry.nostyle';
 import Dialog from '@material-ui/core/Dialog/Dialog';
+import { Divider } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Head from 'next/head';
 import Typography from '@material-ui/core/Typography/Typography';
@@ -28,8 +29,6 @@ export default function Home() {
     const [dialog, setDialog] = useState<boolean>(false);
 
     const onSubmit = async (formData) => {
-        console.log(Number(pickDate), formData);
-
         const res = await fetch('/api/insertEntry', {
             method: 'POST',
             headers: {
@@ -90,7 +89,6 @@ export default function Home() {
                         onChange={(date) => setPickDate(date)}
                     />
                 </div>
-                {errors.password && <span style={{ color: 'red' }}>* Please enter the password</span>}
                 <div style={{ marginBottom: '13px' }} />
                 What food the ducks are fed?
                 <div className={styles.inputGroup}>
@@ -106,7 +104,7 @@ export default function Home() {
                         <FontAwesomeIcon icon={faCheese} />
                     </span>
                     <input
-                        {...register('food')}
+                        {...register('food', { required: true })}
                         id="food"
                         style={{
                             borderBottomLeftRadius: 0,
@@ -116,6 +114,10 @@ export default function Home() {
                         placeholder="... Bread Crumb"
                     />
                 </div>
+                {errors.food && (
+                    <span style={{ color: 'red' }}>* Please enter what kind of food duck(s) has been fed</span>
+                )}
+                <Divider style={{ height: '0px', marginBottom: '13px' }} />
                 Where the ducks are fed?
                 <div className={styles.inputGroup}>
                     <span
@@ -130,7 +132,7 @@ export default function Home() {
                         <FontAwesomeIcon icon={faMapMarkerAlt} />
                     </span>
                     <input
-                        {...register('location')}
+                        {...register('location', { required: true })}
                         id="location"
                         style={{
                             // borderRight: 0,
@@ -143,6 +145,8 @@ export default function Home() {
                         placeholder="... XXX National Park"
                     />
                 </div>
+                {errors.location && <span style={{ color: 'red' }}>* Please enter where duck(s) has been fed</span>}
+                <Divider style={{ height: '0px', marginBottom: '13px' }} />
                 How many ducks are fed?
                 <div className={styles.inputGroup}>
                     <span
@@ -157,7 +161,7 @@ export default function Home() {
                         <FontAwesomeIcon icon={faSortNumericUp} />
                     </span>
                     <input
-                        {...register('duck_quantity')}
+                        {...register('duck_quantity', { required: true })}
                         id="duck_quantity"
                         style={{
                             borderBottomRightRadius: '5px',
@@ -170,6 +174,10 @@ export default function Home() {
                         type="number"
                     />
                 </div>
+                {errors.duck_quantity && (
+                    <span style={{ color: 'red' }}>* Please enter how many duck has been fed</span>
+                )}
+                <Divider style={{ height: '0px', marginBottom: '13px' }} />
                 How much food the ducks are fed?
                 <div className={styles.inputGroup}>
                     <span
@@ -184,7 +192,7 @@ export default function Home() {
                         <FontAwesomeIcon icon={faWeight} />
                     </span>
                     <input
-                        {...register('food_quantity')}
+                        {...register('food_quantity', { required: true })}
                         id="food_quantity"
                         style={{
                             // borderRight: 0,
@@ -209,6 +217,10 @@ export default function Home() {
                         Grams
                     </span>
                 </div>
+                {errors.food_quantity && (
+                    <span style={{ color: 'red' }}>* Please enter how much food duck(s) has been fed</span>
+                )}
+                <Divider style={{ height: '0px', marginBottom: '13px' }} />
                 <button className={styles.button}>Submit</button>
             </form>
         </div>
