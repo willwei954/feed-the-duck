@@ -28,6 +28,7 @@ interface formError {
 export default function Home() {
     const { handleSubmit } = useForm();
 
+    // form field value state
     const [pickDate, setPickDate] = useState<Date>(new Date());
     const [food, setFood] = useState<string>('');
     const [location, setLocation] = useState<string>('');
@@ -35,6 +36,8 @@ export default function Home() {
     const [food_quantity, setFood_quantity] = useState<string>('');
 
     const [dialog, setDialog] = useState<boolean>(false);
+
+    // form field error message controller state
     const [errors, setErrors] = useState<formError>({
         food: false,
         location: false,
@@ -42,10 +45,12 @@ export default function Home() {
         food_quantity: false,
     });
 
+    // e: html element which stored new state value, setFunction: set State Function
     const handleOnchange = (e, setFunction) => {
         setFunction(e.target.value);
     };
 
+    // inputs validator
     const validate = (): boolean => {
         let error = false;
 
@@ -56,6 +61,7 @@ export default function Home() {
             food_quantity: false,
         };
 
+        // if field is missing, set relative error state to true to display message
         if (!food) {
             temp_errors.food = true;
             error = true;
@@ -79,6 +85,7 @@ export default function Home() {
         return error;
     };
 
+    // form submit function
     const onSubmit = async (e) => {
         if (!validate()) {
             const res = await fetch('/api/insertEntry', {
@@ -97,15 +104,15 @@ export default function Home() {
                 }),
             });
 
+            // if api return 200 then reset state and display success message.
             if (res.ok) {
-                const json = await res.json();
-
                 resetState();
                 setDialog(true);
             }
         }
     };
 
+    // Reset states
     const resetState = () => {
         setPickDate(new Date());
         setLocation('');
@@ -138,6 +145,8 @@ export default function Home() {
             </Dialog>
             <form id="form" className={styles.form} onSubmit={handleSubmit(onSubmit)} onReset={resetState}>
                 <h3>Feed The Duck</h3>
+
+
                 What time the ducks are fed?
                 <div className={styles.inputGroup}>
                     <span
@@ -159,6 +168,8 @@ export default function Home() {
                     />
                 </div>
                 <div style={{ marginBottom: '13px' }} />
+
+
                 What food the ducks are fed?
                 <div className={styles.inputGroup}>
                     <span
@@ -188,6 +199,8 @@ export default function Home() {
                     <span style={{ color: 'red' }}>* Please enter what kind of food duck(s) has been fed</span>
                 )}
                 <Divider style={{ height: '0px', marginBottom: '13px' }} />
+
+
                 Where the ducks are fed?
                 <div className={styles.inputGroup}>
                     <span
@@ -218,6 +231,8 @@ export default function Home() {
                 </div>
                 {errors.location && <span style={{ color: 'red' }}>* Please enter where duck(s) has been fed</span>}
                 <Divider style={{ height: '0px', marginBottom: '13px' }} />
+
+
                 How many ducks are fed?
                 <div className={styles.inputGroup}>
                     <span
@@ -250,6 +265,8 @@ export default function Home() {
                     <span style={{ color: 'red' }}>* Please enter how many duck has been fed</span>
                 )}
                 <Divider style={{ height: '0px', marginBottom: '13px' }} />
+
+
                 How much food the ducks are fed?
                 <div className={styles.inputGroup}>
                     <span
@@ -294,10 +311,13 @@ export default function Home() {
                     <span style={{ color: 'red' }}>* Please enter how much food duck(s) has been fed</span>
                 )}
                 <Divider style={{ height: '0px', marginBottom: '13px' }} />
+
+
                 <button className={styles.button} type="submit">
                     Submit
                 </button>
                 <Divider style={{ height: '0px', marginBottom: '13px' }} />
+
                 <button style={{ backgroundColor: 'lightblue' }} className={styles.button} type="reset">
                     Reset
                 </button>

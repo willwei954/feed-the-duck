@@ -20,6 +20,8 @@ export interface formData {
     food_quantity: number;
 }
 
+// Take in two objects and comparing them,
+// If not comparable result equal to two objects equal
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
         return -1;
@@ -41,6 +43,8 @@ function getComparator<Key extends keyof any>(
         : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
+// Sort data based on the comparator
+// Input: 
 function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
     const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
     stabilizedThis.sort((a, b) => {
@@ -179,11 +183,21 @@ export default function EnhancedTable({ data }) {
                                 .map((row) => {
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={row.id.toString()}>
-                                            <TableCell style={{width: '20%'}} align="left">{row.feed_time}</TableCell>
-                                            <TableCell style={{width: '35%'}} align="left">{row.location.toString()}</TableCell>
-                                            <TableCell style={{width: '15%'}} align="left">{row.duck_quantity.toString()}</TableCell>
-                                            <TableCell style={{width: '15%'}} align="left">{row.food.toString()}</TableCell>
-                                            <TableCell style={{width: '15%'}} align="left">{row.food_quantity.toString()}</TableCell>
+                                            <TableCell style={{ width: '20%' }} align="left">
+                                                {row.feed_time}
+                                            </TableCell>
+                                            <TableCell style={{ width: '35%' }} align="left">
+                                                {row.location.toString()}
+                                            </TableCell>
+                                            <TableCell style={{ width: '15%' }} align="left">
+                                                {row.duck_quantity.toString()}
+                                            </TableCell>
+                                            <TableCell style={{ width: '15%' }} align="left">
+                                                {row.food.toString()}
+                                            </TableCell>
+                                            <TableCell style={{ width: '15%' }} align="left">
+                                                {row.food_quantity.toString()}
+                                            </TableCell>
                                         </TableRow>
                                     );
                                 })}
