@@ -14,7 +14,7 @@ In the root, you can run the following commands:
 
 -   `npm install` to install dependencies
 -   `npm run db` to initial sqlite database, NOTICE: this command only need to Execute once, and generate a study_duck.db under root directory.
--   `npm run dev` to start the project. Website will be accessible at http://localhost:3000/
+-   `npm run dev` to start the project. Website will be accessible at http://localhost:3000/, visit http://localhost:3000/stats for data records.
 
 ## Approach to the Problem / Technologies / Hours
 The scope of this project is very small, it required two pages, one for public to entering data and one for admin user to check the data, one backend to fetch and insert data, one database to store data. To make it as simply as possible, I created one single web application to handle all of those functionalities. In a perfect world, like production environment, it could be better to separate the customer site and admin site since we might not want to expose the data to public, separated backend so we can keep the service alive while we deploying or making changes on the frontend.
