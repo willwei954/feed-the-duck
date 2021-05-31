@@ -83,8 +83,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     return (
         <TableHead>
             <TableRow>
-                {headCells.map((headCell, index) => {
-                    console.log(headCell, orderBy);
+                {headCells.map((headCell) => {
                     return (
                         <TableCell
                             key={headCell.id}
