@@ -42,8 +42,6 @@ function getComparator<Key extends keyof any>(
 }
 
 function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
-    console.log('--stable sort', array);
-
     const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
     stabilizedThis.sort((a, b) => {
         const order = comparator(a[0], b[0]);
@@ -63,7 +61,7 @@ interface HeadCell {
 const headCells: HeadCell[] = [
     { id: 'feed_time', numeric: false, disablePadding: true, label: 'Feed Time' },
     { id: 'location', numeric: false, disablePadding: false, label: 'Location' },
-    { id: 'duck_quantity', numeric: true, disablePadding: false, label: 'Duck Number' },
+    { id: 'duck_quantity', numeric: true, disablePadding: false, label: 'Ducks' },
     { id: 'food', numeric: false, disablePadding: false, label: 'Food' },
     { id: 'food_quantity', numeric: true, disablePadding: false, label: 'Quantity (g)' },
 ];
@@ -85,48 +83,29 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     return (
         <TableHead>
             <TableRow>
-                {headCells.map((headCell, index) => (
-                    <TableCell
-                        key={headCell.id}
-                        align={index !== 0 ? 'right' : 'left'}
-                        padding={'default'}
-                        sortDirection={orderBy === headCell.id ? order : false}
-                    >
-                        <TableSortLabel
-                            active={orderBy === headCell.id}
-                            direction={orderBy === headCell.id ? order : 'asc'}
-                            onClick={createSortHandler(headCell.id)}
+                {headCells.map((headCell, index) => {
+                    console.log(headCell, orderBy);
+                    return (
+                        <TableCell
+                            key={headCell.id}
+                            align={'left'}
+                            padding={'default'}
+                            sortDirection={orderBy === headCell.id ? order : false}
                         >
-                            {headCell.label}
-                        </TableSortLabel>
-                    </TableCell>
-                ))}
+                            <TableSortLabel
+                                active={orderBy === headCell.id}
+                                direction={orderBy === headCell.id ? order : 'asc'}
+                                onClick={createSortHandler(headCell.id)}
+                            >
+                                {headCell.label}
+                            </TableSortLabel>
+                        </TableCell>
+                    );
+                })}
             </TableRow>
         </TableHead>
     );
 }
-
-const useToolbarStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            paddingLeft: theme.spacing(2),
-            paddingRight: theme.spacing(1),
-        },
-        highlight:
-            theme.palette.type === 'light'
-                ? {
-                      color: theme.palette.secondary.main,
-                      backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-                  }
-                : {
-                      color: theme.palette.text.primary,
-                      backgroundColor: theme.palette.secondary.dark,
-                  },
-        title: {
-            flex: '1 1 100%',
-        },
-    })
-);
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -201,11 +180,11 @@ export default function EnhancedTable({ data }) {
                                 .map((row) => {
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={row.id.toString()}>
-                                            <TableCell align="left">{row.feed_time}</TableCell>
-                                            <TableCell align="right">{row.location.toString()}</TableCell>
-                                            <TableCell align="right">{row.duck_quantity.toString()}</TableCell>
-                                            <TableCell align="right">{row.food.toString()}</TableCell>
-                                            <TableCell align="right">{row.food_quantity.toString()}</TableCell>
+                                            <TableCell style={{width: '20%'}} align="left">{row.feed_time}</TableCell>
+                                            <TableCell style={{width: '35%'}} align="left">{row.location.toString()}</TableCell>
+                                            <TableCell style={{width: '15%'}} align="left">{row.duck_quantity.toString()}</TableCell>
+                                            <TableCell style={{width: '15%'}} align="left">{row.food.toString()}</TableCell>
+                                            <TableCell style={{width: '15%'}} align="left">{row.food_quantity.toString()}</TableCell>
                                         </TableRow>
                                     );
                                 })}

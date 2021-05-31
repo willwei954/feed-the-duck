@@ -3,7 +3,6 @@ import styles from '../../styles/Stats.module.css';
 
 function Status({ data }) {
     // Render data...
-    console.log('--- data ---', data);
     return (
         <div className={styles.container}>
             <div className={styles.wrapper}>

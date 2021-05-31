@@ -18,8 +18,6 @@ const handler: NextApiHandler = async (req, res) => {
 
         await dbSqlite.close();
 
-        console.log(query, result);
-
         return res.json(result);
     } catch (e) {
         console.error(e);
